@@ -1,0 +1,39 @@
+
+name: Security Checks
+
+on: [push]
+
+jobs:
+  security_scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.12
+
+      - name: Install dependencies
+        run: |
+          pip install bandit safety
+      - name: Run Bandit
+        run: bandit -r . --format txt -o bandit_results.txt || true  # Este comando pode ignorar os erros e continuar a execução
+
+      - name: Run Safety Check
+        run: safety check --json > safety_results.json  # Executa o Safety Check e armazena os resultados em um arquivo JSON
+
+      - name: Upload Bandit results
+        if: always()  # Isso garante que os resultados sejam carregados mesmo se houver erros no Bandit
+        uses: actions/upload-artifact@v2
+        with:
+          name: result-bandit
+          path: result_bandit.txt
+
+      - name: Upload Safety results
+        uses: actions/upload-artifact@v2
+        with:
+          name: result-safety
+          path: result_safety.json
