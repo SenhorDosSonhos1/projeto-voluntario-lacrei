@@ -1,7 +1,4 @@
 # Desafio voluntario DevSecOps Lacrei!
-## Garantindo a Segurança do Projeto com Bandit e Safety Check
-
-Como desenvolvedor, é fundamental garantir a segurança do nosso código. Para isso, integramos duas ferramentas muito importantes: o Bandit e o Safety Check. Eles são como guardiões, ajudando a identificar possíveis problemas de segurança e manter nossas aplicações mais seguras.
 
 ## Bandit:
 
